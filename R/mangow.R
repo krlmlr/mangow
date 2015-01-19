@@ -1,8 +1,15 @@
 #' Convert a Gower distance problem to a Manhattan distance problem
 #'
-#' @param data The data
-#' @return A matrix where the Manhattan distance between all pairs of rows
-#'   equals the Gower distance in the data between the corresponding pairs of rows
+#' This function converts a data frame to a matrix with the same number of rows.
+#' For any two rows of the resulting matrix, the Manhattan distance
+#' equals the Gower distance in the input data between the corresponding rows.
+#'
+#' @param data The input data frame
+#'   with continuous, categorical (factor) and ordered variables
+#' @return A numeric matrix
+#'
+#' @examples
+#' mangow(iris[1:10, ])
 #'
 #' @export
 mangow <- function(data) {
