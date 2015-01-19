@@ -15,8 +15,10 @@ mangow <- function(data) {
 
 mangow_one <- function(x) UseMethod("mangow_one", x)
 
+#' @export
 mangow_one.default <- function(x) stop("Can't manhattanize ", class(x))
 
+#' @export
 mangow_one.numeric <- function(x) {
   rng <- range(x)
   if (any(is.infinite(rng)))
