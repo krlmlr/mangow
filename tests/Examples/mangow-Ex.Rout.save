@@ -1,0 +1,66 @@
+
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "mangow"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('mangow')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("mangow")
+> ### * mangow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mangow
+> ### Title: mangow.
+> ### Aliases: mangow mangow-package
+> 
+> ### ** Examples
+> 
+> mangow(iris[1:10, ])
+                             xsetosa xversicolor xvirginica
+1  0.14 0.12 0.44 0.11333333     0.1           0          0
+2  0.10 0.02 0.44 0.11333333     0.1           0          0
+3  0.06 0.06 0.39 0.11333333     0.1           0          0
+4  0.04 0.04 0.49 0.11333333     0.1           0          0
+5  0.12 0.14 0.44 0.11333333     0.1           0          0
+6  0.20 0.20 0.59 0.24666667     0.1           0          0
+7  0.04 0.10 0.44 0.18000000     0.1           0          0
+8  0.12 0.10 0.49 0.11333333     0.1           0          0
+9  0.00 0.00 0.44 0.11333333     0.1           0          0
+10 0.10 0.04 0.49 0.04666667     0.1           0          0
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.052 0.003 0.057 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
