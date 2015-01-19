@@ -29,6 +29,5 @@ mangow_one.numeric <- function(x) {
 
 #' @export
 mangow_one.factor <- function(x) {
-  nlev <- nlevels(x)
-  model.matrix(~.-1, data.frame(x=x)) / nlev
+  model.matrix(~.-1, data.frame(x=x)) / 2
 }
