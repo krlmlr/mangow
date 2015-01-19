@@ -10,7 +10,7 @@ lapply(
   lapply(sets::set_power(names(columns)), unlist)[-1],
   function(sub_columns) {
     test_that(
-      sprintf("Equivalence with columns of type %s",
+      sprintf("Equivalence with column(s) of type %s",
               paste0(sub_columns, collapse = ", ")),
       {
         data <- do.call(expand.grid, columns[sub_columns])
