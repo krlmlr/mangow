@@ -1,5 +1,5 @@
 context("Call")
 
 test_that("Calling with Iris data set", {
-  mangow(iris)
+  expect_true(is.matrix(mangow(iris)))
 })

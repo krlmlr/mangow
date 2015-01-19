@@ -11,6 +11,10 @@ mangow(data)
 \arguments{
 \item{data}{The data}
 }
+\value{
+A matrix where the Manhattan distance between all pairs of rows
+  equals the Gower distance in the data between the corresponding pairs of rows
+}
 \description{
 mangow.
 
