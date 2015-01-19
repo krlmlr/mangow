@@ -1,11 +1,10 @@
+Encoding: UTF-8
 Package: mangow
 Title: What the Package Does (one line, title case)
 Version: 0.0-0
 Authors@R: "Kirill Müller <krlmlr+r@mailbox.org> [aut, cre]"
 Description: What the package does (one paragraph)
 Depends: R (>= 3.1.2)
-Suggests: cluster
+Suggests: testthat, cluster, sets
 License: GPL-3
 LazyData: true
-Encoding: UTF-8
-Suggests: testthat
