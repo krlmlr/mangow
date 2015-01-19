@@ -31,7 +31,7 @@ mangow_one.numeric <- function(x) {
   if (any(is.infinite(rng)))
     stop("Gower distance only allows finite values")
 
-  as.matrix(x / diff(rng) - rng[[1L]], ncol = 1)
+  as.matrix(x / diff(rng) - rng[[1L]], ncol = 1L)
 }
 
 #' @export
@@ -41,5 +41,5 @@ mangow_one.factor <- function(x) {
 
 #' @export
 mangow_one.ordered <- function(x) {
-  as.matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1)
+  as.matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1L)
 }
