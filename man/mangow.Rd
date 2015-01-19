@@ -6,7 +6,10 @@
 \alias{mangow-package}
 \title{mangow.}
 \usage{
-mangow()
+mangow(data)
+}
+\arguments{
+\item{data}{The data}
 }
 \description{
 mangow.
