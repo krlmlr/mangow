@@ -27,6 +27,7 @@ mangow_one.numeric <- function(x) {
   as.matrix(x / diff(rng) - rng[[1L]], ncol = 1)
 }
 
+#' @export
 mangow_one.factor <- function(x) {
   nlev <- nlevels(x)
   model.matrix(~.-1, data.frame(x=x)) / nlev
