@@ -34,6 +34,5 @@ mangow_one.factor <- function(x) {
 
 #' @export
 mangow_one.ordered <- function(x) {
-  nlev <- nlevels(x)
-  model.matrix(~.-1, data.frame(x=x)) / (nlev * 2L)
+  as.matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1)
 }
