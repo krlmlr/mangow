@@ -24,8 +24,9 @@ equals the Gower distance in the input data between the corresponding rows.
 }
 \examples{
 iris_sub <- iris[c(1:2,50:51,100:101), ]
+iris_sub
 cluster::daisy(iris_sub, "gower")
-mangow(iris_sub)
-cluster::daisy(mangow(iris_sub), "manhattan")
+mangow_iris_sub <- mangow(iris_sub)
+cluster::daisy(mangow_iris_sub, "manhattan")
 }
 
