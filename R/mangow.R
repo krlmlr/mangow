@@ -10,6 +10,7 @@
 #'
 #' @examples
 #' iris_sub <- iris[c(1:2,50:51,100:101), ]
+#' row.names(iris_sub) <- NULL
 #' iris_sub
 #' cluster::daisy(iris_sub, "gower")
 #' mangow_iris_sub <- mangow(iris_sub)
