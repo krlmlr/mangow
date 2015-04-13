@@ -4,3 +4,5 @@
 ^Makefile$
 ^NEWS\.md$
 ^NEWS\.md\.tmpl$
+/Makefile
+/makeR
