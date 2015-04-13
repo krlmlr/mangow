@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: mangow
 Title: Generate a Manhattan Distance problem from a Gower's distance problem
 Version: 0.0-1
-Authors@R: "Kirill Müller <krlmlr+r@mailbox.org> [aut, cre]"
+Authors@R: as.person("Kirill Müller <krlmlr+r@mailbox.org> [aut, cre]")
 Description: What the package does (one paragraph)
 Depends: R (>= 3.1.2)
 Suggests: testthat, cluster, sets
