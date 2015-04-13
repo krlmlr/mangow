@@ -23,6 +23,9 @@ For any two rows of the resulting matrix, the Manhattan distance
 equals the Gower distance in the input data between the corresponding rows.
 }
 \examples{
-mangow(iris[1:10, ])
+iris_sub <- iris[c(1:2,50:51,100:101), ]
+cluster::daisy(iris_sub, "gower")
+mangow(iris_sub)
+cluster::daisy(mangow(iris_sub), "manhattan")
 }
 
