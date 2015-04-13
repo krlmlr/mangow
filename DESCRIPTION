@@ -8,3 +8,4 @@ Depends: R (>= 3.1.2)
 Suggests: testthat, cluster, sets
 License: GPL-3
 LazyData: true
+GitHub: https://github.com/krlmlr/mangow
