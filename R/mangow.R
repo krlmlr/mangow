@@ -27,13 +27,16 @@ mangow <- function(data) {
 mangow_one <- function(x) UseMethod("mangow_one", x)
 
 #' @export
-mangow_one.default <- function(x) stop("Can't manhattanize ", class(x))
+mangow_one.default <- function(x) {
+  stop("Can't manhattanize ", class(x))
+}
 
 #' @export
 mangow_one.numeric <- function(x) {
   rng <- range(x)
-  if (any(is.infinite(rng)))
+  if (any(is.infinite(rng))) {
     stop("Gower distance only allows finite values")
+  }
 
   as.matrix(x / diff(rng) - rng[[1L]], ncol = 1L)
 }
