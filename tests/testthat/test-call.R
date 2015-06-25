@@ -12,3 +12,12 @@ test_that("Calling with Iris data set", {
 test_that("Character vector not supported", {
   expect_error(mangow(data.frame(x=letters[1:3], stringsAsFactors = FALSE)), "manhattanize")
 })
+
+test_that("Numeric and ordinal span whole [0, 1] interval", {
+  num <- mangow(data.frame(x=1:10))
+  ord <- mangow(data.frame(x=factor(1:10, ordered = TRUE)))
+  expect_equal(num[1], 0)
+  expect_equal(num[10], 1)
+  expect_equal(ord[1], 0)
+  expect_equal(ord[10], 1)
+})

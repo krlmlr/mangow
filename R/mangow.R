@@ -17,33 +17,40 @@
 #' cluster::daisy(mangow_iris_sub, "manhattan")
 #' @export
 mangow <- function(data) {
-  columns <- lapply(
+  columns <- mapply(
     data,
-    mangow_one)
+    names(data),
+    FUN = mangow_one,
+    SIMPLIFY = FALSE)
 
   Reduce(cbind, columns) / length(data)
 }
 
-mangow_one <- function(x) UseMethod("mangow_one", x)
+mangow_one <- function(x, name) UseMethod("mangow_one", x)
 
 #' @export
-mangow_one.default <- function(x) stop("Can't manhattanize ", class(x))
+mangow_one.default <- function(x, name) {
+  stop("Can't manhattanize ", class(x))
+}
 
 #' @export
-mangow_one.numeric <- function(x) {
+mangow_one.numeric <- function(x, name) {
   rng <- range(x)
-  if (any(is.infinite(rng)))
+  if (any(is.infinite(rng))) {
     stop("Gower distance only allows finite values")
+  }
 
-  as.matrix(x / diff(rng) - rng[[1L]], ncol = 1L)
+  matrix((x - rng[[1L]]) / diff(rng), ncol = 1L, dimnames = list(NULL, name))
 }
 
 #' @export
-mangow_one.factor <- function(x) {
-  model.matrix(~.-1, data.frame(x=x)) / 2
+mangow_one.factor <- function(x, name) {
+  data <- data.frame(x=x)
+  colnames(data) <- paste0(name, ".")
+  model.matrix(~.-1, data) / 2
 }
 
 #' @export
-mangow_one.ordered <- function(x) {
-  as.matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1L)
+mangow_one.ordered <- function(x, name) {
+  matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1L, dimnames = list(NULL, name))
 }
