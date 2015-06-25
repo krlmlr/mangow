@@ -40,7 +40,7 @@ mangow_one.numeric <- function(x, name) {
     stop("Gower distance only allows finite values")
   }
 
-  matrix(x / diff(rng) - rng[[1L]], ncol = 1L, dimnames = list(NULL, name))
+  matrix((x - rng[[1L]]) / diff(rng), ncol = 1L, dimnames = list(NULL, name))
 }
 
 #' @export
