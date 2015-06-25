@@ -6,6 +6,5 @@
 ^wercker\.yml$
 ^\.lintr$
 ^Makefile$
-^makeR
-^Makefile$
-^makeR
+^Makefile\.in$
+^makeR$
