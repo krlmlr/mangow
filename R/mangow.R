@@ -51,7 +51,7 @@ compression_matrix_data <- function(x) {
   pm1 <- c(1, -1)
   full <- c(pm1, rep(0, length(lev)))
 
-  c(rep(full, n_full), pm1[seq_len(n_full)])
+  c(rep(full, n_full), pm1[seq_len(n_rem)])
 }
 
 compression_matrix_colnames <- function(x, name) {
