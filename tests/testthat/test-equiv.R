@@ -9,6 +9,8 @@ columns <- list(
 funcs <- list(
   cluster = function(data) cluster::daisy(data, metric = "gower")
   , StatMatch = StatMatch::gower.dist
+  # , ICGE = ICGE::dgower
+  # , FD = FD::gowdis
 )
 
 mapply(funcs, names(funcs), SIMPLIFY = FALSE, FUN = function(func, funcname) {
