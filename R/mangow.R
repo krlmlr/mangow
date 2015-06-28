@@ -23,7 +23,11 @@ mangow <- function(data) {
     FUN = mangow_one,
     SIMPLIFY = FALSE)
 
-  Reduce(cbind, columns) / length(data)
+  m <- Reduce(cbind, columns) / length(data)
+  if (any(rownames(data) != seq_len(nrow(m)))) {
+    rownames(m) <- rownames(data)
+  }
+  m
 }
 
 mangow_one <- function(x, name) UseMethod("mangow_one", x)
@@ -46,7 +50,7 @@ mangow_one.numeric <- function(x, name) {
 #' @export
 mangow_one.factor <- function(x, name) {
   data <- data.frame(x=x)
-  model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2
+  `rownames<-`(model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2, NULL)
 }
 
 #' @export
