@@ -10,7 +10,8 @@ test_that("Calling with Iris data set", {
 })
 
 test_that("Character vector not supported", {
-  expect_error(mangow(data.frame(x=letters[1:3], stringsAsFactors = FALSE)), "manhattanize")
+  expect_error(mangow(data.frame(qwert=letters[1:3], stringsAsFactors = FALSE)),
+               "manhattanize.*qwert")
 })
 
 test_that("Numeric and ordinal span whole [0, 1] interval", {

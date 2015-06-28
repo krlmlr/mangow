@@ -23,14 +23,18 @@ mangow <- function(data) {
     FUN = mangow_one,
     SIMPLIFY = FALSE)
 
-  Reduce(cbind, columns) / length(data)
+  m <- Reduce(cbind, columns) / length(data)
+  if (any(rownames(data) != seq_len(nrow(m)))) {
+    rownames(m) <- rownames(data)
+  }
+  m
 }
 
 mangow_one <- function(x, name) UseMethod("mangow_one", x)
 
 #' @export
 mangow_one.default <- function(x, name) {
-  stop("Can't manhattanize ", class(x))
+  stop("Can't manhattanize ", class(x), " (column ", name, ").")
 }
 
 #' @export
@@ -46,8 +50,7 @@ mangow_one.numeric <- function(x, name) {
 #' @export
 mangow_one.factor <- function(x, name) {
   data <- data.frame(x=x)
-  colnames(data) <- paste0(name, ".")
-  model.matrix(~.-1, data) / 2
+  `rownames<-`(model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2, NULL)
 }
 
 #' @export
