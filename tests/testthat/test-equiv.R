@@ -22,9 +22,11 @@ lapply(
               funcname, paste0(sub_columns, collapse = ", ")),
       {
         data <- do.call(expand.grid, columns[sub_columns])
+        mdata <- mangow(data)
+        expect_null(rownames(mdata))
         expect_equal(
           unname(as.matrix(func(data))),
-          unname(as.matrix(cluster::daisy(mangow(data), metric = "manhattan"))))
+          unname(as.matrix(cluster::daisy(mdata, metric = "manhattan"))))
       }
     )
   }

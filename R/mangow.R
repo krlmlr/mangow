@@ -50,7 +50,7 @@ mangow_one.numeric <- function(x, name) {
 #' @export
 mangow_one.factor <- function(x, name) {
   data <- data.frame(x=x)
-  model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2
+  `rownames<-`(model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2, NULL)
 }
 
 #' @export
