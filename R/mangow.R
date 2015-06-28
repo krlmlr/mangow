@@ -23,7 +23,11 @@ mangow <- function(data) {
     FUN = mangow_one,
     SIMPLIFY = FALSE)
 
-  Reduce(cbind, columns) / length(data)
+  m <- Reduce(cbind, columns) / length(data)
+  if (any(rownames(data) != seq_len(nrow(m)))) {
+    rownames(m) <- rownames(data)
+  }
+  m
 }
 
 mangow_one <- function(x, name) UseMethod("mangow_one", x)
