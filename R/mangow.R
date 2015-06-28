@@ -30,7 +30,7 @@ mangow_one <- function(x, name) UseMethod("mangow_one", x)
 
 #' @export
 mangow_one.default <- function(x, name) {
-  stop("Can't manhattanize ", class(x))
+  stop("Can't manhattanize ", class(x), " (column ", name, ").")
 }
 
 #' @export
