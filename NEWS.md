@@ -1,3 +1,9 @@
+# mangow 0.0-4 (2016-04-08)
+
+- Cleanup.
+- Use `rflow`.
+
+
 # mangow 0.0-3 (2015-06-28)
 
 - Use row names from input dataset.
