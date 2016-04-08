@@ -3,13 +3,15 @@ Package: mangow
 Title: Generate a Manhattan Distance Problem from a Gower's Distance
         Problem
 Version: 0.0-3
+Date: 2015-06-28
 Authors@R: person(given = "Kirill", family = "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org")
 Description: The transformation of a Gower's distance problem to a
         Manhattan distance problem allows using algorithms that operate
         on the Manhattan metric (e.g., nearest-neighbor search in the
-        "RANN1" package) on mixed-type datasets.
-Depends: R (>= 3.1.2)
+        'RANN1' package) on mixed-type datasets.
 Suggests: testthat, cluster, sets, StatMatch
 License: GPL-3
 LazyData: true
-GitHub: https://github.com/krlmlr/mangow
+BugReports: https://github.com/krlmlr/mangow
+URL: http://krlmlr.github.io/mangow
+URLNote: https://github.com/krlmlr/mangow
