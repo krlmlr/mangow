@@ -1,5 +1,2 @@
--include makeR/Makefile
--include Makefile.in
-
-init:
-	git submodule update --init
+MAKEFILE_LOC := $(shell Rscript -e "cat(system.file('Makefile',package='rflow'))" )
+include ${MAKEFILE_LOC}
