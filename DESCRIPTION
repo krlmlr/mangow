@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: mangow
 Title: Generate a Manhattan Distance Problem from a Gower's Distance
     Problem
-Version: 0.0-4
+Version: 0.1
 Date: 2016-04-08
 Authors@R: person(given = "Kirill", family = "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org")
 Description: The transformation of a Gower's distance problem to a
