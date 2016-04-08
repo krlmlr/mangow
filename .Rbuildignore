@@ -7,4 +7,3 @@
 ^\.lintr$
 ^Makefile$
 ^Makefile\.in$
-^makeR$
