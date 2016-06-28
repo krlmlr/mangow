@@ -1,4 +1,4 @@
-context("Column names")
+context("Single values")
 
 data <- data.frame(
   numeric=0,
