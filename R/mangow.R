@@ -55,6 +55,7 @@ mangow_one.numeric <- function(x, name) {
   }
 }
 
+#' @importFrom stats model.matrix
 #' @export
 mangow_one.factor <- function(x, name) {
   if (length(levels(x)) > 1) {
