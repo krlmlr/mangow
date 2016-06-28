@@ -37,6 +37,10 @@ mangow_one.default <- function(x, name) {
   stop("Can't manhattanize ", class(x), " (column ", name, ").")
 }
 
+mangow_empty <- function(x) {
+  matrix(nrow = length(x), ncol = 0)
+}
+
 #' @export
 mangow_one.numeric <- function(x, name) {
   rng <- range(x)
@@ -44,16 +48,28 @@ mangow_one.numeric <- function(x, name) {
     stop("Gower distance only allows finite values")
   }
 
-  matrix((x - rng[[1L]]) / diff(rng), ncol = 1L, dimnames = list(NULL, name))
+  if (diff(rng) != 0) {
+    matrix((x - rng[[1L]]) / diff(rng), ncol = 1L, dimnames = list(NULL, name))
+  } else {
+    mangow_empty(x)
+  }
 }
 
 #' @export
 mangow_one.factor <- function(x, name) {
-  data <- data.frame(x=x)
-  `rownames<-`(model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2, NULL)
+  if (length(levels(x)) > 1) {
+    data <- data.frame(x=x)
+    `rownames<-`(model.matrix(~.-1, data) %*% compression_matrix(x, name) / 2, NULL)
+  } else {
+    mangow_empty(x)
+  }
 }
 
 #' @export
 mangow_one.ordered <- function(x, name) {
-  matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1L, dimnames = list(NULL, name))
+  if (length(levels(x)) > 1) {
+    matrix((as.integer(x) - 1L) / (nlevels(x) - 1L), ncol = 1L, dimnames = list(NULL, name))
+  } else {
+    mangow_empty(x)
+  }
 }
