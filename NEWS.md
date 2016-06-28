@@ -1,3 +1,9 @@
+# mangow 0.1-1 (2016-06-28)
+
+- Columns with only one value are not represented in the result matrix.
+- Tests don't show bogus warnings issued by `cluster::daisy()` anymore.
+
+
 # mangow 0.1 (2016-06-28)
 
 Initial GitHub release.
