@@ -6,7 +6,7 @@ test_that("Calling with Iris data set", {
   iris_sub <- iris[seq.int(from = 1, to = nrow(iris), length.out = 18),]
   expect_equal(
     unname(as.matrix(cluster::daisy(iris_sub, metric = "gower"))),
-    unname(as.matrix(cluster::daisy(mangow(iris_sub), metric = "manhattan"))))
+    unname(as.matrix(cluster_daisy_manhattan(mangow(iris_sub)))))
 })
 
 test_that("Character vector not supported", {

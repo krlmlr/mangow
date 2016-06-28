@@ -26,7 +26,7 @@ lapply(
         expect_null(rownames(mdata))
         expect_equal(
           unname(as.matrix(func(data))),
-          unname(as.matrix(cluster::daisy(mdata, metric = "manhattan"))))
+          unname(as.matrix(cluster_daisy_manhattan(mdata))))
       }
     )
   }
