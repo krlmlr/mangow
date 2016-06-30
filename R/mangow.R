@@ -3,10 +3,11 @@
 #' This function converts a data frame to a matrix with the same number of rows.
 #' For any two rows of the resulting matrix, the Manhattan distance
 #' equals the Gower distance in the input data between the corresponding rows.
+#' Currently, this works for continuous, categorical (factor) and ordered
+#' variables.
 #'
-#' @param data The input data frame
-#'   with continuous, categorical (factor) and ordered variables
-#' @return A numeric matrix
+#' @param data A data frame
+#' @return A numeric matrix, with the same number of rows as \code{data}
 #'
 #' @examples
 #' iris_sub <- iris[c(1:2,50:51,100:101), ]
@@ -15,6 +16,7 @@
 #' cluster::daisy(iris_sub, "gower")
 #' mangow_iris_sub <- mangow(iris_sub)
 #' cluster::daisy(mangow_iris_sub, "manhattan")
+#'
 #' @export
 mangow <- function(data) {
   columns <- mapply(
