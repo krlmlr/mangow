@@ -69,6 +69,7 @@ This defines an exact embedding into $L_1$ for single interval-scaled, ordinal, 
 Gower's dissimilarity for the original data equals the $L_1$ distance for the transformed data,
 which is a single real (for interval-scaled and ordinal variables) or a tuple of reals (for nominal variables).
 The generalization to multiple variables simply applies the weights to the transformed data and binds them together.
+(Weighting is currently not supported, but can be added in a straightforward way.)
 
 ```{r}
 mangow::mangow(data.frame(interval = 1:5,
