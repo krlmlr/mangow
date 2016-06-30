@@ -33,7 +33,13 @@ The variable types correspond to R's `numeric`, `factor`, and `ordered`,
 and `logical` types, respectively.
 
 Note that the $m$ function introduced above already defines
-an embedding into $L_1$ for univariate interval-scaled and ordinal data.
+an embedding into $L_1$ for univariate interval-scaled and ordinal data:
+
+```{r}
+mangow:::mangow_one(1:5, "interval")
+mangow:::mangow_one(ordered(letters[1:5]), "ordinal")
+```
+
 The embedding for nominal variables is a bit more difficult.
 For $x_i \in { a_1, a_2, \ldots a_m}$,
 the values are mapped to $R^{\left\lceil \frac{m}{2} \right\rceil}$ as follows:
@@ -53,7 +59,19 @@ The $L_1$ distance between any pair of different values is 1:
 
 - $|a_{2k + 1} - a_{2k + j}| = |0| + \cdots + \left|-\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1$ for $j \geq 2$
 
+Example:
+
+```{r}
+mangow:::mangow_one(factor(LETTERS[1:5]), "nominal")
+```
+
 This defines an exact embedding into $L_1$ for single interval-scaled, ordinal, and nominal variables:
 Gower's dissimilarity for the original data equals the $L_1$ distance for the transformed data,
 which is a single real (for interval-scaled and ordinal variables) or a tuple of reals (for nominal variables).
 The generalization to multiple variables simply applies the weights to the transformed data and binds them together.
+
+```{r}
+mangow::mangow(data.frame(interval = 1:5,
+                          ordinal = ordered(letters[1:5]),
+                          nominal = factor(LETTERS[1:5])))
+```
