@@ -2,7 +2,7 @@
 title: "Embedding Gower's metric in $R^n/L_1$"
 author: "Kirill Müller"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{Embedding Gower's metric in R^n/L_1$}
   %\VignetteEngine{knitr::rmarkdown}
