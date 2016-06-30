@@ -10,11 +10,12 @@ vignette: >
 ---
 
 Gower's dissimilarity index (Gower, XXXX) is a distance measure for mixed-type multivariate data.
-The distance $d(x, y)$ between two multivariate observations $x = (x_1, x_2, \ldots x_n)$
+The distance $d(x, y)$ between two tuples $x = (x_1, x_2, \ldots x_n)$
 and $y = (y_1, y_2, \ldots y_n)$
 is a weighted sum of the distances for each variable $x_i$ and $y_i$;
 the weights are chosen so that they are nonnegative and sum up to 1.
-The calculation of the distance $d(x_i, y_i)$ depends on the type of the variable:
+For single individual variables,
+the calculation of the distance $d(x_i, y_i)$ depends on the type of the variable:
 
 - For interval-scaled variables, the range is mapped to $[0, 1]$:
   $d(x_i, y_i) = |m(x_i) - m(y_i)|$ with
@@ -32,4 +33,24 @@ The variable types correspond to R's `numeric`, `factor`, and `ordered`,
 and `logical` types, respectively.
 
 Note that the $m$ function introduced above already defines
-an embedding into $L_1$ for univariate data.
+an embedding into $L_1$ for univariate interval-scaled and ordinal data.
+The embedding for nominal variables is a bit more difficult.
+For $x_i \in { a_1, a_2, \ldots a_m}$,
+the values are mapped to $R^{\left\lceil \frac{m}{2} \right\rceil}$ as follows:
+
+- $a_1 = (\frac{1}{2}, 0, 0, \ldots)$
+- $a_2 = (-\frac{1}{2}, 0, 0, \ldots)$
+- $a_3 = (0, \frac{1}{2}, 0, \ldots)$
+- $a_4 = (0, -\frac{1}{2}, 0, \ldots)$
+- $a_5 = (0, 0, \frac{1}{2}, \ldots)$
+- $\ldots$
+
+The $L_1$ distance between any pair of different values is 1:
+
+- $|a_{2k} - a_{2k + 1}| = |0| + \cdots + \left|\frac{1}{2} - \left(- \frac{1}{2}\right)\right| + \cdots + |0| = 1$
+
+- $|a_{2k} - a_{2k + j}| = |0| + \cdots + \left|\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1$ for $j \geq 2$
+
+- $|a_{2k + 1} - a_{2k + j}| = |0| + \cdots + \left|-\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1$ for $j \geq 2$
+
+This defines an embedding into $L_1$ for single interval-scaled, ordinal, and nominal variables.
