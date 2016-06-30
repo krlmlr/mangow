@@ -53,4 +53,7 @@ The $L_1$ distance between any pair of different values is 1:
 
 - $|a_{2k + 1} - a_{2k + j}| = |0| + \cdots + \left|-\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1$ for $j \geq 2$
 
-This defines an embedding into $L_1$ for single interval-scaled, ordinal, and nominal variables.
+This defines an exact embedding into $L_1$ for single interval-scaled, ordinal, and nominal variables:
+Gower's dissimilarity for the original data equals the $L_1$ distance for the transformed data,
+which is a single real (for interval-scaled and ordinal variables) or a tuple of reals (for nominal variables).
+The generalization to multiple variables simply applies the weights to the transformed data and binds them together.
