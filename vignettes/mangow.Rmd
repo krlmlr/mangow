@@ -1,0 +1,35 @@
+---
+title: "Embedding Gower's metric in $R^n/L_1$"
+author: "Kirill Müller"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Embedding Gower's metric in R^n/L_1$}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Gower's dissimilarity index (Gower, XXXX) is a distance measure for mixed-type multivariate data.
+The distance $d(x, y)$ between two multivariate observations $x = (x_1, x_2, \ldots x_n)$
+and $y = (y_1, y_2, \ldots y_n)$
+is a weighted sum of the distances for each variable $x_i$ and $y_i$;
+the weights are chosen so that they are nonnegative and sum up to 1.
+The calculation of the distance $d(x_i, y_i)$ depends on the type of the variable:
+
+- For interval-scaled variables, the range is mapped to $[0, 1]$:
+  $d(x_i, y_i) = |m(x_i) - m(y_i)|$ with
+  $m(z) := \frac{z - z_{\text{min}}}{z_{\text{max}} - z_{\text{min}}}$.
+
+- Ordinal variables are treated like interval-scaled variables.
+
+- For nominal variables, the distance is 0 if and only if the values are equal,
+  otherwise it is 1:
+  $d(x_i, y_i) = 1 - I(x_i = y_1)$.
+
+- Binary variables are outside the scope of this discussion.
+
+The variable types correspond to R's `numeric`, `factor`, and `ordered`,
+and `logical` types, respectively.
+
+Note that the $m$ function introduced above already defines
+an embedding into $L_1$ for univariate data.
