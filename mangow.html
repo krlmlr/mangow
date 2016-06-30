@@ -58,15 +58,14 @@
     <h2>Arguments</h2>
     <dl>
       <dt>data</dt>
-      <dd>The input data frame
-with continuous, categorical (factor) and ordered variables</dd>
+      <dd>A data frame</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
       <p><dl>
-A numeric matrix
+A numeric matrix, with the same number of rows as <code>data</code>
 </dl></p>
   
     </div>
@@ -76,7 +75,9 @@ A numeric matrix
 
       <p>This function converts a data frame to a matrix with the same number of rows.
 For any two rows of the resulting matrix, the Manhattan distance
-equals the Gower distance in the input data between the corresponding rows.</p>
+equals the Gower distance in the input data between the corresponding rows.
+Currently, this works for continuous, categorical (factor) and ordered
+variables.</p>
   
     </div>
     
@@ -119,7 +120,8 @@ cluster::daisy(mangow_iris_sub, &quot;manhattan&quot;)
 
 Metric :  manhattan 
 Number of objects : 6
-</div></pre>
+</div>
+<div class='input'></div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
