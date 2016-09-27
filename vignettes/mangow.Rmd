@@ -3,13 +3,14 @@ title: "Embedding Gower's metric in $R^n/L_1$"
 author: "Kirill Müller"
 date: "`r Sys.Date()`"
 output: rmarkdown::pdf_document
+bibliography: mangow.bib
 vignette: >
   %\VignetteIndexEntry{Embedding Gower's metric in R^n/L_1$}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Gower's dissimilarity index (Gower, XXXX) is a distance measure for mixed-type multivariate data.
+Gower's dissimilarity index `r knitcitations::citep("10.2307/2528823")` is a distance measure for mixed-type multivariate data.
 The distance $d(x, y)$ between two tuples $x = (x_1, x_2, \ldots x_n)$
 and $y = (y_1, y_2, \ldots y_n)$
 is a weighted sum of the distances for each variable $x_i$ and $y_i$;
