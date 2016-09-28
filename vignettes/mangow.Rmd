@@ -1,79 +1,143 @@
 ---
-title: "Embedding Gower's metric in $R^n/L_1$"
+title: "Embedding Gower's metric in $\\mathbb{R}^k/L_1$"
 author: "Kirill Müller"
 date: "`r Sys.Date()`"
-output: rmarkdown::pdf_document
+output: rmarkdown::html_document
 bibliography: mangow.bib
+abstract: >
+  This draft describes an embedding of Gower's dissimilarity index into the
+  $L_1$ metric on $\mathbb{R}^k$, where $k$ depends on the structure of the variables,
+  and only in some cases on the data.
+  This embedding allows using standard algorithms such as the kd-tree
+  to find the nearest neigbors of an observation without processing all other
+  observations in the dataset,
+  which can be useful in applications such as clustering or statistical matching.
+  An implementation for the statistical software package R is demonstrated.
 vignette: >
-  %\VignetteIndexEntry{Embedding Gower's metric in R^n/L_1$}
+  %\VignetteIndexEntry{Embedding Gower's metric in $\\mathbb{R}^k/L_1$}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Gower's dissimilarity index `r knitcitations::citep("10.2307/2528823")` is a distance measure for mixed-type multivariate data.
+
+# Definition
+
+Gower's dissimilarity index `r knitcitations::citep("10.2307/2528823")`
+is a distance measure for mixed-type multivariate data.
 The distance $d(x, y)$ between two tuples $x = (x_1, x_2, \ldots x_n)$
 and $y = (y_1, y_2, \ldots y_n)$
 is a weighted sum of the distances for each variable $x_i$ and $y_i$;
-the weights are chosen so that they are nonnegative and sum up to 1.
-For single individual variables,
+the weights $w_i$ are chosen so that they are nonnegative and sum up to 1:
+
+$$
+d(x,y) = \sum_{i=1}^n w_i d(x_i, y_i)
+$$
+
+For individual variables,
 the calculation of the distance $d(x_i, y_i)$ depends on the type of the variable:
 
 - For interval-scaled variables, the range is mapped to $[0, 1]$:
-  $d(x_i, y_i) = |m(x_i) - m(y_i)|$ with
-  $m(z) := \frac{z - z_{\text{min}}}{z_{\text{max}} - z_{\text{min}}}$.
+  $d(x_i, y_i) = |f(x_i) - f(y_i)|$ with
+  $f(z) := \frac{z - z_{\text{min}}}{z_{\text{max}} - z_{\text{min}}}$.
 
 - Ordinal variables are treated like interval-scaled variables.
 
 - For nominal variables, the distance is 0 if and only if the values are equal,
   otherwise it is 1:
-  $d(x_i, y_i) = 1 - I(x_i = y_1)$.
+  $d(x_i, y_i) = 1 - I(x_i = y_i)$.
 
-- Binary variables are outside the scope of this discussion.
+- Binary variables are outside the scope of this discussion
+  but will be considered in the conclusion.
 
 The variable types correspond to R's `numeric`, `factor`, and `ordered`,
 and `logical` types, respectively.
 
-Note that the $m$ function introduced above already defines
-an embedding into $L_1$ for univariate interval-scaled and ordinal data:
 
-```{r}
-mangow:::mangow_one(1:5, "interval")
-mangow:::mangow_one(ordered(letters[1:5]), "ordinal")
-```
+# Embedding univariate data
 
+`r knitcitations::citet("Gower_1966")` discusses the concept of a Q matrix
+where each of $n$ observations is mapped to an $n$-dimensional vector,
+and dimensionality reduction techniques are applied.
+
+For embedding Gower's distance into $L_1$,
+we first consider univariate data,
+and define a transformation $f$ to $\mathbb{R}^k$ for some $k$ so that
+$$
+||f(x_i) - f(y_i)||_1 = d(x_i, y_i)
+$$
+
+The function $f$ from the definition already yields an embedding into $L_1$,
+mapping to $\mathbb{R}^1$ for univariate interval-scaled and ordinal data.
 The embedding for nominal variables is a bit more difficult.
 For $x_i \in { a_1, a_2, \ldots a_m}$,
-the values are mapped to $R^{\left\lceil \frac{m}{2} \right\rceil}$ as follows:
+the values are mapped to $\mathbb{R}^{\left\lceil \frac{m}{2} \right\rceil}$ as follows:
 
-- $a_1 = (\frac{1}{2}, 0, 0, \ldots)$
-- $a_2 = (-\frac{1}{2}, 0, 0, \ldots)$
-- $a_3 = (0, \frac{1}{2}, 0, \ldots)$
-- $a_4 = (0, -\frac{1}{2}, 0, \ldots)$
-- $a_5 = (0, 0, \frac{1}{2}, \ldots)$
+- $f(a_1) := (\frac{1}{2}, 0, 0, \ldots)$
+- $f(a_2) := (-\frac{1}{2}, 0, 0, \ldots)$
+- $f(a_3) := (0, \frac{1}{2}, 0, \ldots)$
+- $f(a_4) := (0, -\frac{1}{2}, 0, \ldots)$
+- $f(a_5) := (0, 0, \frac{1}{2}, \ldots)$
 - $\ldots$
 
 The $L_1$ distance between any pair of different values is 1:
 
-- $|a_{2k} - a_{2k + 1}| = |0| + \cdots + \left|\frac{1}{2} - \left(- \frac{1}{2}\right)\right| + \cdots + |0| = 1$
+- $||f(a_{2k}) - f(a_{2k + 1})||_1 = |0| + \cdots + \left|\frac{1}{2} - \left(- \frac{1}{2}\right)\right| + \cdots + |0| = 1 = d(a_{2k}, a_{2k + 1})$
 
-- $|a_{2k} - a_{2k + j}| = |0| + \cdots + \left|\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1$ for $j \geq 2$
+- $||f(a_{2k}) - f(a_{2k + j})||_1 = |0| + \cdots + \left|\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1 = d(a_{2k}, a_{2k + j})$ for $j \geq 2$
 
-- $|a_{2k + 1} - a_{2k + j}| = |0| + \cdots + \left|-\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1$ for $j \geq 2$
+- $||f(a_{2k + 1}) - f(a_{2k + j})||_1 = |0| + \cdots + \left|-\frac{1}{2}\right| + \cdots + \left|\pm \frac{1}{2}\right| + \cdots + |0| = 1 = d(a_{2k + 1}, a_{2k + j})$ for $j \geq 2$
+
+This defines an exact embedding into $L_1$ for single interval-scaled, ordinal,
+and nominal variables:
+Gower's dissimilarity for the original data equals the $L_1$ distance for the transformed data,
+which is a single real (for interval-scaled and ordinal variables) or a tuple of reals (for nominal variables).
+
+
+# Embedding mixed-type multivariate data
+
+The embedding of multivariate data consists of scaling and concatenating the $L_1$ embedding of the individual variables to tuples.
+Assuming that $x_1$ is embedded into $\mathbb{R}^{m_1}$, $x_2$ into $\mathbb{R}^{m_2}$ etc.,
+the tuple $(x_1, x_2, \ldots, x_n)$ can be embedded in $\mathbb{R}^{m_1 + m_2 + \ldots m_n}$
+by defining
+
+$$
+f(x_1, x_2, \ldots, x_n) = w_1 f(x_1) \oplus w_2 f(x_2) \oplus \cdots \oplus w_n f(x_n)
+$$
+
+with $\oplus$ defined as "vector concatenation".
+
+described in the previous section
+
+The generalization to multiple variables simply applies the weights to the transformed data and binds them together.
 
 Example:
 
+
+# Examples
+
+
 ```{r}
+mangow:::mangow_one(1:5, "interval")
+mangow:::mangow_one(ordered(letters[1:5]), "ordinal")
 mangow:::mangow_one(factor(LETTERS[1:5]), "nominal")
 ```
 
-This defines an exact embedding into $L_1$ for single interval-scaled, ordinal, and nominal variables:
-Gower's dissimilarity for the original data equals the $L_1$ distance for the transformed data,
-which is a single real (for interval-scaled and ordinal variables) or a tuple of reals (for nominal variables).
-The generalization to multiple variables simply applies the weights to the transformed data and binds them together.
 (Weighting is currently not supported, but can be added in a straightforward way.)
 
 ```{r}
 mangow::mangow(data.frame(interval = 1:5,
                           ordinal = ordered(letters[1:5]),
                           nominal = factor(LETTERS[1:5])))
+```
+
+
+# Conclusion
+
+- Binary variables
+
+
+# Bibliography
+
+```{r echo=FALSE, results='asis'}
+knitcitations::bibliography()
 ```
