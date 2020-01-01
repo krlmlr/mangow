@@ -7,3 +7,4 @@
 ^\.lintr$
 ^Makefile$
 ^Makefile\.in$
+^README\.Rmd$

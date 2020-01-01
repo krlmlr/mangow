@@ -1,0 +1,71 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+pkgload::load_all()
+```
+
+# mangow
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/krlmlr/mangow.svg?branch=master)](https://travis-ci.org/krlmlr/mangow)
+[![codecov.io](https://codecov.io/github/krlmlr/mangow/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/mangow?branch=master)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![CRAN status](https://www.r-pkg.org/badges/version/mangow)](https://CRAN.R-project.org/package=mangow)
+<!-- badges: end -->
+
+The goal of mangow is to normalize provide a transformation from Gower to Manhattan distance.
+The only exported function in this package converts a data frame to an equivalent matrix where the pairwise Gower distances in the input data frame are identical to the pairwise Manhattan distances in the resulting matrix.
+With this transformation, efficient algorithms for the Manhattan distance, such as nearest-neighbor for L1, can be extended to work with Gower distances.
+
+## Installation
+
+You can install the released version of mangow from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("mangow")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("krlmlr/mangow")
+```
+
+## Example
+
+This basic example computes a Gower dissimilarity matrix on a subset of the Iris data and compares it with the L1 dissimilarity matrix of the transformed data.
+
+```{r read}
+iris_sub <- iris[c(1:2, 50:51, 100:101), ]
+row.names(iris_sub) <- NULL
+iris_sub
+
+cluster::daisy(iris_sub, metric = "gower")
+```
+
+The transformation returns a matrix with the same number of rows, but potentially more columns, depending on the data types of the input columns.
+
+```{r transform}
+library(mangow)
+
+mangow_iris_sub <- mangow(iris_sub)
+mangow_iris_sub
+```
+
+The resulting dissimilarity matrix for the Manhattan metric is the same as the Gower dissimilarity matrix on the input.
+
+```{r daisy}
+cluster::daisy(mangow_iris_sub, metric = "manhattan")
+```

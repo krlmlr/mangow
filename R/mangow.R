@@ -9,11 +9,19 @@
 #' @return A numeric matrix
 #'
 #' @examples
-#' iris_sub <- iris[c(1:2,50:51,100:101), ]
+#' # Create a meaningful subset
+#' iris_sub <- iris[c(1:2, 50:51, 100:101), ]
 #' row.names(iris_sub) <- NULL
 #' iris_sub
+#'
+#' # Compute a dissimilarity matrix
 #' cluster::daisy(iris_sub, "gower")
+#'
+#' # Transform to Manhattan distance
 #' mangow_iris_sub <- mangow(iris_sub)
+#'
+#' # The resulting dissimilarity matrix for the Manhattan metric
+#' # is the same as the Gower dissimilarity matrix on the input
 #' cluster::daisy(mangow_iris_sub, "manhattan")
 #' @export
 mangow <- function(data) {
